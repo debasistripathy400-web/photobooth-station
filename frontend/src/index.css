@@ -13,38 +13,63 @@
 
 @layer base {
   body {
-    @apply bg-black text-white font-body selection:bg-brand-neon-purple/30 selection:text-white;
+    background-color: #000;
+    color: #fff;
+    font-family: var(--font-body);
     background-image: 
       radial-gradient(circle at 20% 20%, rgba(188, 19, 254, 0.15) 0%, transparent 40%),
       radial-gradient(circle at 80% 80%, rgba(0, 243, 255, 0.15) 0%, transparent 40%);
     min-height: 100vh;
   }
+  
+  ::selection {
+    background-color: rgba(188, 19, 254, 0.3);
+    color: #fff;
+  }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight font-bold;
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    font-weight: 700;
   }
 }
 
 .glass {
-  @apply bg-glass-bg backdrop-blur-xl border border-glass-border;
+  background-color: var(--color-glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-glass-border);
 }
 
 .neon-border {
-  @apply border border-brand-neon-purple shadow-[0_0_15px_-3px_rgba(188,19,254,0.5)];
+  border: 1px solid var(--color-brand-neon-purple);
+  box-shadow: 0 0 15px -3px rgba(188, 19, 254, 0.5);
 }
 
 .neon-text-purple {
-  @apply text-brand-neon-purple drop-shadow-[0_0_8px_rgba(188,19,254,0.8)];
+  color: var(--color-brand-neon-purple);
+  filter: drop-shadow(0 0 8px rgba(188, 19, 254, 0.8));
 }
 
 .neon-text-blue {
-  @apply text-brand-neon-blue drop-shadow-[0_0_8px_rgba(0,243,255,0.8)];
+  color: var(--color-brand-neon-blue);
+  filter: drop-shadow(0 0 8px rgba(0, 243, 255, 0.8));
 }
 
 .btn-neon {
-  @apply relative overflow-hidden px-6 py-3 rounded-full font-bold transition-all duration-300
-         bg-brand-neon-purple hover:bg-brand-neon-pink
-         shadow-[0_0_20px_-5px_rgba(188,19,254,0.6)] hover:shadow-[0_0_25px_rgba(255,0,255,0.8)];
+  position: relative;
+  overflow: hidden;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  transition: all 0.3s;
+  background-color: var(--color-brand-neon-purple);
+  box-shadow: 0 0 20px -5px rgba(188, 19, 254, 0.6);
+}
+
+.btn-neon:hover {
+  background-color: var(--color-brand-neon-pink);
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
 }
 
 /* Custom Scrollbar */

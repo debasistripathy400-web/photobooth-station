@@ -24,8 +24,7 @@ import {
   ChevronRight,
   ChevronLeft,
   Settings,
-  ShieldCheck,
-  CheckCircle2
+  ShieldCheck
 } from 'lucide-react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -227,30 +226,28 @@ const Photobooth = () => {
     return (
         <div className="pt-24 pb-12 px-6 min-h-screen flex flex-col items-center gap-8 overflow-hidden selection:bg-brand-neon-blue/30 relative">
             <AnimatePresence>
+                {isSidebarOpen && <motion.div key="backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[80]" />}
                 {isSidebarOpen && (
-                    <>
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsSidebarOpen(false)} className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[80]" />
-                        <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 30, stiffness: 300 }} className="fixed top-0 right-0 h-full w-85 bg-[#0a0a0a] border-l border-white/5 z-[100] p-10 shadow-[-60px_0_120px_rgba(0,0,0,0.9)] flex flex-col gap-10 overflow-y-auto no-scrollbar">
-                            <div className="flex items-center justify-between border-b border-white/5 pb-8">
-                                <div className="flex flex-col gap-1">
-                                    <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white">Select <span className="text-brand-neon-purple">Filter</span></h3>
-                                    <span className="text-[9px] font-mono text-gray-500 uppercase tracking-widest leading-none">Photo Effects</span>
-                                </div>
-                                <button onClick={() => setIsSidebarOpen(false)} className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-gray-500 hover:text-white transition-all hover:scale-110 active:scale-90"><ChevronRight className="w-6 h-6"/></button>
+                    <motion.div key="sidebar" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 30, stiffness: 300 }} className="fixed top-0 right-0 h-full w-85 bg-[#0a0a0a] border-l border-white/5 z-[100] p-10 shadow-[-60px_0_120px_rgba(0,0,0,0.9)] flex flex-col gap-10 overflow-y-auto no-scrollbar">
+                        <div className="flex items-center justify-between border-b border-white/5 pb-8">
+                            <div className="flex flex-col gap-1">
+                                <h3 className="text-2xl font-black italic uppercase tracking-tighter text-white">Select <span className="text-brand-neon-purple">Filter</span></h3>
+                                <span className="text-[9px] font-mono text-gray-500 uppercase tracking-widest leading-none">Photo Effects</span>
                             </div>
-                            <div className="grid grid-cols-1 gap-4">
-                                {FILTER_TYPES.map(f => (
-                                    <button key={f.id} onClick={() => {setFilter(f.id); setIsSidebarOpen(false);}} className={`flex items-center gap-5 p-5 rounded-3xl border transition-all group ${filter === f.id ? 'bg-brand-neon-purple/10 border-brand-neon-purple text-brand-neon-purple shadow-[0_0_30px_#bc13fe1a]' : 'bg-white/5 border-transparent text-gray-500 hover:text-white hover:bg-white/[0.08]'}`}>
-                                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${filter === f.id ? 'bg-brand-neon-purple text-white shadow-[0_0_20px_#bc13fe]' : 'bg-black/40 group-hover:bg-white/10'}`}>{f.icon}</div>
-                                        <div className="flex flex-col items-start gap-0.5">
-                                            <span className="text-[11px] font-black uppercase tracking-[0.2em]">{f.name}</span>
-                                            <span className="text-[8px] font-mono text-gray-600 uppercase">Available</span>
-                                        </div>
-                                    </button>
-                                ))}
-                            </div>
-                        </motion.div>
-                    </>
+                            <button onClick={() => setIsSidebarOpen(false)} className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-gray-500 hover:text-white transition-all hover:scale-110 active:scale-90"><ChevronRight className="w-6 h-6"/></button>
+                        </div>
+                        <div className="grid grid-cols-1 gap-4">
+                            {FILTER_TYPES.map(f => (
+                                <button key={f.id} onClick={() => {setFilter(f.id); setIsSidebarOpen(false);}} className={`flex items-center gap-5 p-5 rounded-3xl border transition-all group ${filter === f.id ? 'bg-brand-neon-purple/10 border-brand-neon-purple text-brand-neon-purple shadow-[0_0_30px_#bc13fe1a]' : 'bg-white/5 border-transparent text-gray-500 hover:text-white hover:bg-white/[0.08]'}`}>
+                                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all ${filter === f.id ? 'bg-brand-neon-purple text-white shadow-[0_0_20px_#bc13fe]' : 'bg-black/40 group-hover:bg-white/10'}`}>{f.icon}</div>
+                                    <div className="flex flex-col items-start gap-0.5">
+                                        <span className="text-[11px] font-black uppercase tracking-[0.2em]">{f.name}</span>
+                                        <span className="text-[8px] font-mono text-gray-600 uppercase">Available</span>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </motion.div>
                 )}
             </AnimatePresence>
 
@@ -260,7 +257,7 @@ const Photobooth = () => {
             </button>
 
             {/* Viewport Area */}
-            <div className="w-full max-w-5xl relative aspect-video glass rounded-[3.5rem] overflow-hidden border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-black group-viewport">
+            <div className="w-full max-w-5xl relative aspect-video glass rounded-[3.5rem] overflow-hidden border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-black group/viewport">
                 {!capturedImage ? (
                     <div className="relative w-full h-full">
                         <Webcam audio={false} ref={webcamRef} mirrored={isMirrored} screenshotFormat="image/png" videoConstraints={videoConstraints} className={`w-full h-full object-cover select-none ${getFilterClass()}`} style={{ filter: getFilterCSS() }} />
@@ -281,7 +278,7 @@ const Photobooth = () => {
                         </div>
 
                         {/* Floating Capture Overlay */}
-                        <div className="absolute bottom-10 inset-x-0 flex justify-center z-30 opacity-0 group-viewport-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-10 inset-x-0 flex justify-center z-30 opacity-0 group-hover/viewport:opacity-100 transition-opacity duration-300">
                              <button 
                                 disabled={isCapturing} 
                                 onClick={startCapture}
@@ -397,17 +394,13 @@ const Photobooth = () => {
 
                     <div className="flex flex-col gap-2 items-end lg:items-center relative z-10">
                          <div className="flex items-center gap-3">
-                            <CheckCircle2 className="w-5 h-5 text-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]" />
+                            <ShieldCheck className="w-5 h-5 text-green-500 shadow-[0_0_15px_rgba(34,197,94,0.3)]" />
                             <span className="text-[13px] font-black text-white uppercase tracking-[0.2em]">{user?.username || 'Guest'}_Ready</span>
                          </div>
                          <p className="text-[10px] font-mono text-gray-600 uppercase tracking-widest italic leading-none">System Active</p>
                     </div>
                 </div>
             </div>
-
-            <style dangerouslySetInnerHTML={{ __html: `
-                .group-viewport:hover .group-viewport-hover\\:opacity-100 { opacity: 1; }
-            `}} />
         </div>
     );
 };

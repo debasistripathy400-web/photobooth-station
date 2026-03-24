@@ -8,4 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // [Cache Buster] - Triggered hard compiler reset to restore CSS rendering
 })
