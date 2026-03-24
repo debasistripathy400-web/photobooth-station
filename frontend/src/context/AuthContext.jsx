@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 const AuthContext = createContext(null);
 
 // Initialize axios with baseURL and credentials if needed
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
+// axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);

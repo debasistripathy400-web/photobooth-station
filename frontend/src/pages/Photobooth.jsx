@@ -212,7 +212,7 @@ const Photobooth = () => {
     const savePhoto = async (image) => {
         try {
             const token = localStorage.getItem('access_token');
-            await axios.post('http://127.0.0.1:8000/api/photos/upload_base64/', 
+            await axios.post('/api/photos/upload_base64/', 
                 { image, filter_used: filter },
                 { headers: { 'Authorization': `Bearer ${token}` } }
             );

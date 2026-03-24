@@ -32,10 +32,10 @@ const Gallery = () => {
     const fetchPhotos = async () => {
         try {
             const token = localStorage.getItem('access_token');
-            const res = await axios.get('http://127.0.0.1:8000/api/photos/', {
+            const res = await axios.get('/api/photos/', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
-            setPhotos(res.data);
+            setPhotos(res.data.map(p => ({ ...p, image: p.image ? p.image.replace('http://127.0.0.1:8000', '') : p.image })));
         } catch (err) {
             console.error("Gallery sync error", err);
             if (err.response?.status === 401) {
@@ -52,7 +52,7 @@ const Gallery = () => {
         if (!window.confirm("Delete this photo forever?")) return;
         try {
             const token = localStorage.getItem('access_token');
-            await axios.delete(`http://127.0.0.1:8000/api/photos/${id}/`, {
+            await axios.delete(`/api/photos/${id}/`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             setPhotos(photos.filter(p => p.id !== id));

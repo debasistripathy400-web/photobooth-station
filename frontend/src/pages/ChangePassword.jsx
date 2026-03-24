@@ -23,7 +23,7 @@ const ChangePassword = () => {
 
         setLoading(true);
         try {
-            await axios.post('http://localhost:8000/api/users/change_password/', formData);
+            await axios.post('/api/users/change_password/', formData);
             toast.success("Security Credentials Updated!");
             setTimeout(() => navigate('/profile'), 1500);
         } catch (err) {
