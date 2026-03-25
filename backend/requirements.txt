@@ -13,3 +13,6 @@ opencv-python
 mediapipe
 pillow
 python-dotenv
+gunicorn
+whitenoise
+dj-database-url
