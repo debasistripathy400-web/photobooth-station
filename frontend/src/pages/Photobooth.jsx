@@ -252,12 +252,12 @@ const Photobooth = () => {
             </AnimatePresence>
 
             {/* Sidebar Toggle */}
-            <button onClick={() => setIsSidebarOpen(true)} className="fixed right-6 top-32 z-[90] w-16 h-16 rounded-[2rem] bg-black/40 backdrop-blur-2xl border border-white/10 flex items-center justify-center text-brand-neon-purple shadow-3xl hover:bg-brand-neon-purple hover:text-white transition-all hover:scale-110 active:scale-95 group">
-                <Settings className="w-7 h-7 group-hover:rotate-180 transition-transform duration-700" />
+            <button onClick={() => setIsSidebarOpen(true)} className="fixed right-4 sm:right-6 top-24 sm:top-32 z-[90] w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-[2rem] bg-black/40 backdrop-blur-2xl border border-white/10 flex items-center justify-center text-brand-neon-purple shadow-3xl hover:bg-brand-neon-purple hover:text-white transition-all hover:scale-110 active:scale-95 group">
+                <Settings className="w-6 h-6 sm:w-7 sm:h-7 group-hover:rotate-180 transition-transform duration-700" />
             </button>
 
             {/* Viewport Area */}
-            <div className="w-full max-w-5xl relative aspect-video glass rounded-[3.5rem] overflow-hidden border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-black group/viewport">
+            <div className="w-full max-w-5xl relative aspect-[4/3] sm:aspect-video glass rounded-[2rem] sm:rounded-[3.5rem] overflow-hidden border border-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-black group/viewport">
                 {!capturedImage ? (
                     <div className="relative w-full h-full">
                         <Webcam audio={false} ref={webcamRef} mirrored={isMirrored} screenshotFormat="image/png" videoConstraints={videoConstraints} className={`w-full h-full object-cover select-none ${getFilterClass()}`} style={{ filter: getFilterCSS() }} />
@@ -266,26 +266,26 @@ const Photobooth = () => {
                                 <motion.span key={countdown} initial={{scale:0.2, opacity:0, rotate:-20}} animate={{scale:1, opacity:1, rotate:0}} className="text-[260px] font-black italic text-white drop-shadow-[0_0_60px_rgba(0,0,0,0.8)] leading-none tabular-nums select-none">{countdown}</motion.span>
                             </div>
                         )}
-                        <div className="absolute top-10 left-10 flex items-center gap-6 z-10">
-                             <div className="glass px-8 py-4 rounded-3xl border border-white/20 flex items-center gap-4 backdrop-blur-3xl shadow-2xl">
-                                <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_15px_#ef4444]" />
-                                <span className="text-[12px] font-black uppercase text-white tracking-[0.3em]">{isCollageMode ? `Photo ${collageImages.length + 1}` : 'Live View'}</span>
+                        <div className="absolute top-4 sm:top-10 left-4 sm:left-10 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 z-10">
+                             <div className="glass px-4 sm:px-8 py-2 sm:py-4 rounded-xl sm:rounded-3xl border border-white/20 flex items-center gap-2 sm:gap-4 backdrop-blur-3xl shadow-2xl">
+                                <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_15px_#ef4444]" />
+                                <span className="text-[9px] sm:text-[12px] font-black uppercase text-white tracking-[0.2em] sm:tracking-[0.3em]">{isCollageMode ? `P${collageImages.length + 1}` : 'Live'}</span>
                              </div>
-                             <button onClick={() => setIsMirrored(!isMirrored)} className={`glass px-8 py-4 rounded-3xl border transition-all text-[12px] font-black uppercase tracking-widest flex items-center gap-4 backdrop-blur-3xl shadow-2xl ${isMirrored ? 'border-brand-neon-blue bg-brand-neon-blue/20 text-brand-neon-blue shadow-[0_0_20px_rgba(0,243,255,0.2)]' : 'border-white/10 text-gray-400 hover:text-white hover:bg-white/10'}`}>
-                                <RefreshCw className={`w-5 h-5 ${isMirrored ? 'animate-spin-slow' : ''}`} />
-                                {isMirrored ? 'Mirror On' : 'Mirror Off'}
+                             <button onClick={() => setIsMirrored(!isMirrored)} className={`glass px-4 sm:px-8 py-2 sm:py-4 rounded-xl sm:rounded-3xl border transition-all text-[9px] sm:text-[12px] font-black uppercase tracking-widest flex items-center gap-2 sm:gap-4 backdrop-blur-3xl shadow-2xl ${isMirrored ? 'border-brand-neon-blue bg-brand-neon-blue/20 text-brand-neon-blue shadow-[0_0_20px_rgba(0,243,255,0.2)]' : 'border-white/10 text-gray-400 hover:text-white hover:bg-white/10'}`}>
+                                <RefreshCw className={`w-4 h-4 sm:w-5 sm:h-5 ${isMirrored ? 'animate-spin-slow' : ''}`} />
+                                <span className="hidden xs:inline">{isMirrored ? 'Mirror On' : 'Mirror Off'}</span>
                              </button>
                         </div>
 
                         {/* Floating Capture Overlay */}
-                        <div className="absolute bottom-10 inset-x-0 flex justify-center z-30 opacity-0 group-hover/viewport:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-6 sm:bottom-10 inset-x-0 flex justify-center z-30 opacity-0 group-hover/viewport:opacity-100 transition-opacity duration-300">
                              <button 
                                 disabled={isCapturing} 
                                 onClick={startCapture}
-                                className={`w-28 h-28 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center group active:scale-95 transition-all hover:bg-white/20 hover:scale-110 shadow-[0_0_40px_rgba(255,255,255,0.1)] ${isCapturing ? 'opacity-20 cursor-not-allowed' : ''}`}
+                                className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center group active:scale-95 transition-all hover:bg-white/20 hover:scale-110 shadow-[0_0_40px_rgba(255,255,255,0.1)] ${isCapturing ? 'opacity-20 cursor-not-allowed' : ''}`}
                              >
-                                <div className="w-22 h-22 rounded-full border-[4px] border-white flex items-center justify-center">
-                                     <div className="w-16 h-16 rounded-full bg-red-500 group-hover:bg-red-400 transition-colors shadow-inner" />
+                                <div className="w-16 h-16 sm:w-22 sm:h-22 rounded-full border-[3px] sm:border-[4px] border-white flex items-center justify-center">
+                                     <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-red-500 group-hover:bg-red-400 transition-colors shadow-inner" />
                                 </div>
                              </button>
                         </div>
@@ -293,15 +293,15 @@ const Photobooth = () => {
                 ) : (
                     <div className="relative w-full h-full bg-[#020202] flex items-center justify-center group pointer-events-none sm:pointer-events-auto">
                         <motion.img initial={{scale:0.95, opacity:0, rotate:2}} animate={{scale:1, opacity:1, rotate:0}} src={capturedImage} className="max-w-[90%] max-h-[90%] object-contain rounded-2xl shadow-[0_50px_100px_rgba(0,0,0,0.8)]" />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/90 backdrop-blur-[70px] opacity-0 group-hover:opacity-100 transition-all duration-700">
-                            <div className="flex gap-16">
-                                <button onClick={() => {setCapturedImage(null); setCollageImages([]);}} className="w-32 h-32 rounded-[2.5rem] bg-white/5 flex flex-col items-center justify-center text-white border border-white/10 hover:bg-white/10 hover:scale-110 transition-all group/btn shadow-2xl">
-                                    <RotateCcw className="w-12 h-12 mb-2 group-hover/btn:rotate-[-120deg] transition-transform duration-500" />
-                                    <span className="text-[11px] font-black uppercase tracking-widest">Retry</span>
+                        <div className="absolute inset-x-0 bottom-10 sm:inset-0 flex items-center justify-center bg-black/90 sm:backdrop-blur-[70px] opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-auto">
+                            <div className="flex gap-8 sm:gap-16">
+                                <button onClick={() => {setCapturedImage(null); setCollageImages([]);}} className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl sm:rounded-[2.5rem] bg-white/5 flex flex-col items-center justify-center text-white border border-white/10 hover:bg-white/10 hover:scale-110 transition-all group/btn shadow-2xl">
+                                    <RotateCcw className="w-8 h-8 sm:w-12 sm:h-12 mb-2 group-hover/btn:rotate-[-120deg] transition-transform duration-500" />
+                                    <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-widest">Retry</span>
                                 </button>
-                                <button onClick={() => {const l=document.createElement('a'); l.href=capturedImage; l.download='my-photo.png'; l.click();}} className="w-32 h-32 rounded-[2.5rem] bg-brand-neon-blue flex flex-col items-center justify-center text-black shadow-[0_0_80px_rgba(0,243,255,0.3)] hover:scale-125 transition-all font-black group/btn">
-                                    <Download className="w-12 h-12 mb-2 group-hover/btn:translate-y-1 transition-transform duration-500" />
-                                    <span className="text-[11px] uppercase tracking-widest">Download</span>
+                                <button onClick={() => {const l=document.createElement('a'); l.href=capturedImage; l.download='my-photo.png'; l.click();}} className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl sm:rounded-[2.5rem] bg-brand-neon-blue flex flex-col items-center justify-center text-black shadow-[0_0_80px_rgba(0,243,255,0.3)] hover:scale-125 transition-all font-black group/btn">
+                                    <Download className="w-8 h-8 sm:w-12 sm:h-12 mb-2 group-hover/btn:translate-y-1 transition-transform duration-500" />
+                                    <span className="text-[9px] sm:text-[11px] uppercase tracking-widest">Save</span>
                                 </button>
                             </div>
                         </div>
